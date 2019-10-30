@@ -44,7 +44,7 @@ def store_in_db(g_id, g_name):
 bg = None
 
 #-------------------------------------------------------------------------------
-# Function - To find the running average over the background
+# Function - Finding the running average of the background
 #-------------------------------------------------------------------------------
 def run_avg(image, accumWeight):
 	global bg
@@ -59,7 +59,7 @@ def run_avg(image, accumWeight):
 #-------------------------------------------------------------------------------
 # Function - To segment the region of hand in the image
 #-------------------------------------------------------------------------------
-def segment(image, threshold=25):
+def segment(image, threshold=28):
 	global bg
 	# find the absolute difference between background and current frame
 	diff = cv2.absdiff(bg.astype("uint8"), image)
@@ -100,8 +100,8 @@ def count(thresholded, segmented):
 	distance = pairwise.euclidean_distances([(cX, cY)], Y=[extreme_left, extreme_right, extreme_top, extreme_bottom])[0]
 	maximum_distance = distance[distance.argmax()]
 	
-	# calculate the radius of the circle with 80% of the max euclidean distance obtained
-	radius = int(0.8 * maximum_distance)
+	# calculate the radius of the circle with 75% of the max euclidean distance obtained
+	radius = int(0.75 * maximum_distance)
 	
 	# find the circumference of the circle
 	circumference = (2 * np.pi * radius)
